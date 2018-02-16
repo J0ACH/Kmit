@@ -3,9 +3,8 @@ cmake_policy(SET CMP0048 NEW)
 project (Kmit VERSION 0.0.1)
 
 message(STATUS "")
-message(STATUS "ScBridge [${PROJECT_VERSION}] config init...")
+message(STATUS "Kmit [${PROJECT_VERSION}] config init...")
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
