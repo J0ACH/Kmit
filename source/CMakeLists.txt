@@ -1,5 +1,6 @@
 
 find_package(ScBridge 0.0.1 EXACT REQUIRED)
+find_package(Jui 0.0.9 EXACT REQUIRED)
 find_package(Qt5 COMPONENTS Core Widgets Gui Network REQUIRED)
 
 add_executable(Kmit 
@@ -17,18 +18,21 @@ target_link_libraries(Kmit
 		Qt5::Gui
 		Qt5::Widgets
 		ScBridge
+		Jui
 )
 
 add_custom_command(TARGET Kmit
 	PRE_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ScBridge_LOCATION} ${CMAKE_SOURCE_DIR}/build/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ScBridge_LOCATION} ${CMAKE_BINARY_DIR}/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${Jui_LOCATION} ${CMAKE_BINARY_DIR}/bin
 )
 
 string(TOUPPER ${CMAKE_CONFIGURATION_TYPES} configType)
 set_target_properties( Kmit
     PROPERTIES
-		ARCHIVE_OUTPUT_DIRECTORY_${configType} ${CMAKE_SOURCE_DIR}/build/lib
-		LIBRARY_OUTPUT_DIRECTORY_${configType} ${CMAKE_SOURCE_DIR}/build/lib
-		RUNTIME_OUTPUT_DIRECTORY_${configType} ${CMAKE_SOURCE_DIR}/build/bin
+		ARCHIVE_OUTPUT_DIRECTORY_${configType} ${CMAKE_BINARY_DIR}/lib
+		LIBRARY_OUTPUT_DIRECTORY_${configType} ${CMAKE_BINARY_DIR}/lib
+		RUNTIME_OUTPUT_DIRECTORY_${configType} ${CMAKE_BINARY_DIR}/bin
+		DEBUG_POSTFIX d
 		WIN32_EXECUTABLE TRUE
 )
