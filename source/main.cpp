@@ -5,27 +5,34 @@
 
 #include <core.h>
 #include <screens.h>
+#include <text.h>
+
 #include <scserver.h>
+
+#include <Clocks.h>
+
 
 using namespace Jui;
 using namespace SC;
+using namespace Kmit;
 
 int main(int argc, char *argv[]) {
 
 	QApplication app(argc, argv);
-	
-	/*
-	QWidget *win = new QWidget();
-	win->setGeometry(100, 100, 800, 700);
-	win->show();
-	*/
 
-	
-	Win *win = new Win(100,100,800,700);
+	Win *win = new Win(100, 100, 800, 700);
 	win->name_("Kmit");
-		
-	SC::ScServer server(win);	
+
+	/*
+	ScServer server(win);
 	server.setPath("C:/Program Files/SuperCollider-3.9.0");
+		*/
+
+	PureText *txt = new PureText(win);
+		txt->geometry_(10, 50, 300, 20);
+
+	SystemClock sysClock;
+	txt->text_(QString::number(sysClock.now(),'f',22));
 
 	return app.exec();
 }
