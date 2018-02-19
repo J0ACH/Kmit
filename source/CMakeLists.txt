@@ -1,7 +1,6 @@
 
-find_package(ScBridge 0.0.1 REQUIRED)
+find_package(ScBridge 0.0.1 EXACT REQUIRED)
 find_package(Qt5 COMPONENTS Core Widgets Gui Network REQUIRED)
-
 
 add_executable(Kmit 
 	${CMAKE_CURRENT_LIST_DIR}/main.cpp
