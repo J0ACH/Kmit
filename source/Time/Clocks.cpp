@@ -25,12 +25,25 @@ namespace Kmit {
 
 	// Clocks /////////////////////////////////////////////////////
 
-	SystemClock::SystemClock() {
-		time.start();
+	Clock::Clock(QObject *parent) {
+		//time.start();
 		initTime = now();
+		setTimerType(Qt::PreciseTimer);
+		//connect(this, SIGNAL(timeout()), this, SLOT(tick()));
+		
 		qDebug() << "START" << initTime.toString();
 		//qint64 syncNsecs = 1000000000 - initTime.nsecs();
 
+
+		//int cnt = std::to_string(sync.nsecs()).size();
+
+		/*
+		qDebug() << "cnt:" << syncFullSec.remainingTimeNSecs();
+		*/
+	}
+
+	/*
+	void SystemClock::restartTime() {
 		//QThread::usleep(1000000000 - initTime.nsecs());
 		//std::this_thread::sleep_for(std::chrono::nanoseconds(1000000000 - initTime.nsecs()));
 
@@ -52,42 +65,17 @@ namespace Kmit {
 		}
 		time.start();
 
-		/*
-		QDeadlineTimer syncFullSec;
-		syncFullSec.setPreciseRemainingTime(0, 1000000000 - initTime.nsecs(), Qt::PreciseTimer);
-
-		while (!syncFullSec.hasExpired()) {
-			QString txt, nulls;
-			qint64 rest = syncFullSec.remainingTimeNSecs();
-			int cnt = std::to_string(rest).size();
-			for (int i = 0; i < (9 - cnt); i++) { nulls += "0"; }
-			txt = QString("nsec: %1%2").arg(
-				nulls,
-				QString::number(rest)
-			);
-			qDebug() << "FIN at:" << txt;
-			//qDebug() << "FIN at:" << syncFullSec.remainingTimeNSecs();
-			restartTime();
-			//time.restart();
-			//QThread::usleep(1);
-		}
-		*/
 		TimeStamp sync = now();
 		qDebug() << "DONE" << sync.toString();
 		qDebug() << "time" << time.nsecsElapsed();
-		//int cnt = std::to_string(sync.nsecs()).size();
+	}
+	*/
 
-		/*
-		qDebug() << "cnt:" << syncFullSec.remainingTimeNSecs();
-		*/
+	void Clock::tick() {
+		qDebug() << "TICK" << now().toString();
 	}
 
-	void SystemClock::restartTime() {
-		time.restart();
-		qDebug() << "SystemClock::restartTime: " << now().toString();
-	}
-
-	TimeStamp SystemClock::now() {
+	TimeStamp Clock::now() {
 		using namespace std::chrono;
 		system_clock::time_point timePoint = system_clock::now();
 		system_clock::duration sinceEpoch = timePoint.time_since_epoch();

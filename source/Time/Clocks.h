@@ -7,9 +7,10 @@
 //#include <QTime>
 #include <QDebug>
 #include <QString>
-#include <QElapsedTimer>
-#include <QDeadlineTimer>
-#include <QThread>
+#include <QTimer>
+//#include <QElapsedTimer>
+//#include <QDeadlineTimer>
+//#include <QThread>
 
 //#include "Core.h"
 
@@ -36,21 +37,25 @@ namespace Kmit
 
 	// Clocks /////////////////////////////////////////////////////
 
-	class SystemClock
+	class Clock : public QTimer
 	{
+		Q_OBJECT
 
 	public:
-		SystemClock();
+		Clock(QObject *parent = Q_NULLPTR);
 
 		TimeStamp now();
-		//qint64 iTime();
+		
 		void sched(TimeStamp t);
 
 	private:
-		QElapsedTimer time;
+		
 		TimeStamp initTime;
 
-		void restartTime();
+		private slots:
+		void tick();
+
+		//void restartTime();
 	};
 }
 

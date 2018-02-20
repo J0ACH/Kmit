@@ -7,6 +7,7 @@ add_executable(Kmit
 	${CMAKE_CURRENT_LIST_DIR}/main.cpp
 )
 
+add_subdirectory (Application)
 add_subdirectory (Time)
 
 target_include_directories(Kmit 
