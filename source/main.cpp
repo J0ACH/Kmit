@@ -23,16 +23,17 @@ int main(int argc, char *argv[]) {
 	Win *win = new Win(100, 100, 800, 700);
 	win->name_("Kmit");
 
+	Jui::loadFonts();
 	/*
 	ScServer server(win);
 	server.setPath("C:/Program Files/SuperCollider-3.9.0");
 		*/
 
 	PureText *txt = new PureText(win);
-		txt->geometry_(10, 50, 300, 20);
+	txt->geometry_(10, 50, 300, 20);
 
 	SystemClock sysClock;
-	txt->text_(QString::number(sysClock.now(),'f',22));
+	txt->text_(sysClock.now().toString());
 
 	return app.exec();
 }
