@@ -1,5 +1,6 @@
 
 find_package(ScBridge 0.0.1 EXACT REQUIRED)
+find_package(Orloj 0.0.1 EXACT REQUIRED)
 find_package(Jui 0.0.9 EXACT REQUIRED)
 find_package(Qt5 5.8 COMPONENTS Core Widgets Gui Network REQUIRED)
 
@@ -8,7 +9,7 @@ add_executable(Kmit
 )
 
 add_subdirectory (Application)
-add_subdirectory (Time)
+#add_subdirectory (Time)
 
 target_include_directories(Kmit 
 	PRIVATE
@@ -21,13 +22,18 @@ target_link_libraries(Kmit
 		Qt5::Gui
 		Qt5::Widgets
 		ScBridge
+		Orloj
 		Jui
 )
 
 add_custom_command(TARGET Kmit
 	PRE_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ScBridge_LOCATION} ${CMAKE_BINARY_DIR}/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${Orloj_LOCATION} ${CMAKE_BINARY_DIR}/bin
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${Jui_LOCATION} ${CMAKE_BINARY_DIR}/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_PROPERTY:Qt5::Core,LOCATION> ${CMAKE_BINARY_DIR}/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_PROPERTY:Qt5::Gui,LOCATION> ${CMAKE_BINARY_DIR}/bin
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_PROPERTY:Qt5::Widgets,LOCATION> ${CMAKE_BINARY_DIR}/bin
 )
 
 string(TOUPPER ${CMAKE_CONFIGURATION_TYPES} configType)

@@ -8,10 +8,10 @@
 #include <text.h>
 
 #include <scserver.h>
-
-#include <Clocks.h>
+#include <clocks.h>
 
 using namespace Jui;
+using namespace Orloj;
 using namespace SC;
 
 namespace Kmit {
@@ -27,8 +27,10 @@ namespace Kmit {
 		void onTick();
 
 	private:
-		PureText * txt;
-		Clock clock;
+		PureText *txt, *timestamp;
+		//Clock clock;
+		Orloj::Timetag initTime;
+		Orloj::SystemClock clock;
 	};
 }
 
